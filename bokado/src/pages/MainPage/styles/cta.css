@@ -1,0 +1,35 @@
+.cta {
+    padding: 100px 0;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent-pink) 100%);
+    text-align: center;
+    color: var(--black);
+  }
+  
+  .cta h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .cta p {
+    font-size: 1.2rem;
+    margin-bottom: 40px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .btn-cta {
+    background-color: var(--black);
+    color: var(--white);
+    padding: 15px 40px;
+    font-size: 1.1rem;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+  
+  .btn-cta:hover {
+    background-color: #1a1a1a;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+  
