@@ -5,7 +5,6 @@ import type { RootState, AppDispatch } from '../store';
 import { fetchChats, createNewChat, markChatAsRead } from '../store/slices/chatSlice';
 import { loadMyFriends } from '../store/slices/friendsSlice';
 import '../styles/Chat.css';
-import DashboardNav from '../components/Dashbord/DashboardNav';
 
 const ChatsPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();

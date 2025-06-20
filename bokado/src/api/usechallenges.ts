@@ -1,4 +1,4 @@
-import type { Challenge, ChallengeWithStatus, CheckChallengeResponse } from '../types/challenge';
+import type { Challenge} from '../types/challenge';
 
 const API_BASE_URL = 'https://localhost:7192/api/Challenge';
 

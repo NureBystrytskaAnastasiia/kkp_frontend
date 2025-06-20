@@ -17,13 +17,13 @@ import '../styles/Admin.css';
 
 const AdminPage = () => {
   const dispatch: AppDispatch = useDispatch();
-  const {
-    users,
-    userStats,
-    challengeStats,
-    loading,
-    error
-  } = useSelector((state: RootState) => state.admin);
+const {
+  users,
+  challengeStats,
+  loading,
+  error,
+} = useSelector((state: RootState) => state.admin);
+
 
   useEffect(() => {
     dispatch(getAllUsers());

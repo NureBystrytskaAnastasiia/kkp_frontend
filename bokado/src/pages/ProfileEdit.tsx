@@ -32,7 +32,6 @@ interface ProfileEditProps {
 
 const ProfileEdit: React.FC<ProfileEditProps> = ({
   profile,
-  availableInterests,
   initialFormData,
   initialInterests,
   initialAvatarUrl,
