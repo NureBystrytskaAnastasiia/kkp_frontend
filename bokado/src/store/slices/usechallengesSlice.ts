@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import type { Challenge } from '../../types/challenge';
+import type { Challenge, ChallengeDto } from '../../types/challenge';
 import { challengeApi } from '../../api/usechallenges';
 
 interface ChallengesState {
@@ -16,14 +16,18 @@ const initialState: ChallengesState = {
 };
 
 export const fetchChallenges = createAsyncThunk(
-  'challenges/fetchChallenges',
+  'userChallenges/fetchChallenges',
   async (token: string, { rejectWithValue }) => {
     try {
-      const challenges = await challengeApi.getChallenges(token);
-      return challenges.map(challenge => ({
+      const challengesData = await challengeApi.getChallenges(token);
+      
+      // Перетворюємо ChallengeDto в Challenge з додаванням isCompleted
+      const challenges: Challenge[] = challengesData.map(challenge => ({
         ...challenge,
-        completedAt: challenge.completedAt || null // Нормалізуємо дані
+        isCompleted: !!challenge.completedAt
       }));
+      
+      return challenges;
     } catch (error) {
       return rejectWithValue(error instanceof Error ? error.message : 'Unknown error');
     }
@@ -31,23 +35,39 @@ export const fetchChallenges = createAsyncThunk(
 );
 
 export const completeChallenge = createAsyncThunk(
-  'challenges/completeChallenge',
-  async ({ challengeId, token }: { challengeId: number; token: string }, { rejectWithValue }) => {
+  'userChallenges/completeChallenge',
+  async ({ challengeId, token }: { challengeId: number; token: string }, { rejectWithValue, getState }) => {
     try {
+      const state = getState() as { userChallenges: ChallengesState };
+      const challenge = state.userChallenges.challenges.find(c => c.challengeId === challengeId);
+      
+      if (!challenge) {
+        throw new Error('Challenge not found');
+      }
+      
+      if (challenge.isCompleted) {
+        throw new Error('Challenge already completed');
+      }
+      
       const response = await challengeApi.checkChallenge(challengeId, token);
-      return { challengeId, response };
+      return { challengeId, message: response.message };
     } catch (error) {
       return rejectWithValue(error instanceof Error ? error.message : 'Unknown error');
     }
   }
 );
 
-const challengesSlice = createSlice({
-  name: 'challenges',
+const userChallengesSlice = createSlice({
+  name: 'userChallenges',
   initialState,
-  reducers: {},
+  reducers: {
+    clearError: (state) => {
+      state.error = null;
+    }
+  },
   extraReducers: (builder) => {
     builder
+      // Fetch challenges
       .addCase(fetchChallenges.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -55,21 +75,29 @@ const challengesSlice = createSlice({
       .addCase(fetchChallenges.fulfilled, (state, action: PayloadAction<Challenge[]>) => {
         state.loading = false;
         state.challenges = action.payload;
+        state.error = null;
       })
       .addCase(fetchChallenges.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       })
+      
+      // Complete challenge
+      .addCase(completeChallenge.pending, (state) => {
+        state.error = null;
+      })
       .addCase(completeChallenge.fulfilled, (state, action) => {
-        const { challengeId, response } = action.payload;
+        const { challengeId } = action.payload;
         state.challenges = state.challenges.map(challenge => 
           challenge.challengeId === challengeId
             ? { 
                 ...challenge, 
-                completedAt: response.completedAt || new Date().toISOString() 
+                completedAt: new Date().toISOString(),
+                isCompleted: true
               }
             : challenge
         );
+        state.error = null;
       })
       .addCase(completeChallenge.rejected, (state, action) => {
         state.error = action.payload as string;
@@ -77,4 +105,5 @@ const challengesSlice = createSlice({
   },
 });
 
-export default challengesSlice.reducer;
+export const { clearError } = userChallengesSlice.actions;
+export default userChallengesSlice.reducer;

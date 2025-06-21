@@ -57,3 +57,9 @@ export interface Interest {
   name: string;
   category: string;
 }
+export interface User {
+  userId: number;
+  username: string;
+  isAdmin: boolean;
+  isBanned: boolean;
+}

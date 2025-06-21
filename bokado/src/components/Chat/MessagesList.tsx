@@ -21,6 +21,9 @@ const MessagesList: React.FC<MessagesListProps> = ({
       minute: '2-digit' 
     });
   };
+const sortedMessages = [...messages].sort(
+  (a, b) => new Date(a.sentAt).getTime() - new Date(b.sentAt).getTime()
+);
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);

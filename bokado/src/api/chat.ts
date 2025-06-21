@@ -239,9 +239,9 @@ export const markChatAsRead = async (chatId: number): Promise<void> => {
   }
 };
 
-// Видалити повідомлення
+// Видалити повідомлення - виправлений ендпоінт
 export const deleteMessage = async (messageId: number): Promise<any> => {
-  const response = await axios.delete(`${BASE_URL}/api/Chat/${messageId}`, {
+  const response = await axios.delete(`${BASE_URL}/api/Chat/message/${messageId}`, {
     headers: {
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     },
@@ -277,4 +277,11 @@ export const sendVoiceMessage = async (
   });
 
   return response.data;
+};
+export const deleteChat = async (chatId: number): Promise<void> => {
+  await axios.delete(`${BASE_URL}/api/Chat/${chatId}`, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    },
+  });
 };

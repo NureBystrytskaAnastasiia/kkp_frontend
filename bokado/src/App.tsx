@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter, Routes, Route, Navigate } from 'react-router-dom'; // <-- Заміна тут
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './store';
 
@@ -19,6 +19,7 @@ import ChallengesPage from './pages/ChallengesPage';
 import PremiumOffer from './pages/PremiumOffer';
 import LandingPage from './pages/LandingPage';
 
+
 // Імпортуємо захищені маршрути
 import ProtectedRoute from './routes/ProtectedRoute';
 import ProtectedAdminRoute from './routes/ProtectedAdminRoute';
@@ -26,7 +27,7 @@ import ProtectedAdminRoute from './routes/ProtectedAdminRoute';
 const App: React.FC = () => {
   return (
     <Provider store={store}>
-      <HashRouter> {/* Замість BrowserRouter тут HashRouter */}
+      <BrowserRouter>
         <Routes>
           {/* 🔓 Публічні маршрути */}
           <Route path="/login" element={<LoginPage />} />
@@ -47,6 +48,7 @@ const App: React.FC = () => {
           <Route path="/challenges" element={<ProtectedRoute><ChallengesPage /></ProtectedRoute>} />
           <Route path="/premium" element={<ProtectedRoute><PremiumOffer /></ProtectedRoute>} />
 
+
           {/* 🔒 Адмін-маршрути */}
           <Route path="/admin" element={<ProtectedAdminRoute><AdminPage /></ProtectedAdminRoute>} />
 
@@ -56,7 +58,7 @@ const App: React.FC = () => {
           {/* Обробка неіснуючих маршрутів */}
           <Route path="*" element={<Navigate to="/dashboard" replace />} />
         </Routes>
-      </HashRouter>
+      </BrowserRouter>
     </Provider>
   );
 };
