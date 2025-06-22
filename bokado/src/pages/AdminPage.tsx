@@ -1,4 +1,3 @@
-// AdminPage.tsx
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState, AppDispatch } from '../store';
@@ -79,7 +78,6 @@ const {
       </header>
 
       <div className="admin-grid">
-        {/* Users Section */}
         <section className="admin-section users-section">
           <div className="section-header">
             <h2>Управління користувачами</h2>
@@ -138,8 +136,6 @@ const {
             </table>
           </div>
         </section>
-
-        {/* Stats Section */}
         <section className="admin-section stats-section">
           <h2>Огляд статистики</h2>
           <div className="stats-grid">
@@ -165,8 +161,6 @@ const {
             </div>
           </div>
         </section>
-
-        {/* Challenges Section */}
         <section className="admin-section challenges-section">
           <AdminChallengesPage />
         </section>

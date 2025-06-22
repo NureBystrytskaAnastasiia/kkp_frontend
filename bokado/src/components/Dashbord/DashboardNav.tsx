@@ -12,7 +12,6 @@ const DashboardNav: React.FC<DashboardNavProps> = ({ username, userId, onMenuTog
   const [greeting, setGreeting] = useState<string>("");
 
   useEffect(() => {
-    // Вибираємо випадкове привітання
     const randomIndex = Math.floor(Math.random() * greetings.length);
     setGreeting(greetings[randomIndex]);
   }, []);
@@ -39,7 +38,6 @@ const DashboardNav: React.FC<DashboardNavProps> = ({ username, userId, onMenuTog
         <div className="user-welcome-card" onClick={goToProfile}>
           <div className="user-info">
             <h2>{greeting}, <span className="accent-text">{username}</span>!</h2>
-            <p>Натисніть на карточку, щоб перейти до профілю.</p>
           </div>
         </div>
       </div>

@@ -17,7 +17,7 @@ const TextEditor: React.FC<TextEditorProps> = ({ description, setDescription }) 
   const [addLink, setAddLink] = useState(false);
   const [linkUrl, setLinkUrl] = useState('');
   const [linkText, setLinkText] = useState('');
-  const [showEmojiPicker, setShowEmojiPicker] = useState(false); // Додаємо стейт для показу пікера
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false); 
 
   const handleFormatText = () => {
     let formattedText = description;
@@ -104,8 +104,6 @@ const handleEmojiClick = (emojiData: any) => {
           />
         </>
       )}
-
-      {/* Кнопка для відображення Emoji Picker */}
       <button type="button" onClick={() => setShowEmojiPicker(!showEmojiPicker)}>
         😊 Додати емодзі
       </button>

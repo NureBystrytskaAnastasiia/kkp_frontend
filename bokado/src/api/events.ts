@@ -4,7 +4,6 @@ import type { Event, EventDto } from '../types/event';
 const API_BASE_URL = 'https://localhost:7192/api/Event';
 
 export const fetchEvents = async (): Promise<Event[]> => {
-  // Убираємо токен, оскільки GetEvents не потребує авторизації
   const response = await axios.get(`${API_BASE_URL}/events`);
   
   return response.data;

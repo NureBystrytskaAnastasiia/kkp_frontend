@@ -3,7 +3,6 @@ import type { UserProfile, UserDetailInfo, UpdateProfileRequest, Interest } from
 
 const API_URL = 'https://localhost:7192/api/users';
 
-// Додаємо токен авторизації до кожного запиту
 axios.interceptors.request.use(config => {
   const token = localStorage.getItem('token');
   if (token) {
@@ -15,7 +14,6 @@ axios.interceptors.request.use(config => {
   return config;
 });
 
-// Отримання базової інформації про користувача
 export const getUserProfile = async (userId: number): Promise<UserProfile> => {
   console.log(`[getUserProfile] Отримання профілю користувача з ID: ${userId}`);
   const response = await axios.get(`${API_URL}/${userId}`);
@@ -23,7 +21,6 @@ export const getUserProfile = async (userId: number): Promise<UserProfile> => {
   return response.data;
 };
 
-// Отримання детальної інформації про користувача
 export const getDetailedUserInfo = async (userId: number): Promise<UserDetailInfo> => {
   console.log(`[getDetailedUserInfo] Отримання детальної інформації користувача з ID: ${userId}`);
   const response = await axios.get(`${API_URL}/GetDetail/${userId}`);
@@ -31,7 +28,6 @@ export const getDetailedUserInfo = async (userId: number): Promise<UserDetailInf
   return response.data;
 };
 
-// Оновлення профілю користувача
 export const updateUserProfile = async (
   userId: number,
   data: UpdateProfileRequest
@@ -82,7 +78,6 @@ export const updateUserProfile = async (
   }
 };
 
-// Отримання списку доступних інтересів
 export const getAvailableInterests = async (): Promise<Interest[]> => {
   console.log('[getAvailableInterests] Отримання списку інтересів');
   const response = await axios.get('https://localhost:7192/api/Interest');

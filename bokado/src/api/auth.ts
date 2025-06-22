@@ -13,9 +13,7 @@ export const register = async (data: RegisterRequest): Promise<AuthResponse> => 
   return response.data;
 };
 
-// 🔥 Виправлена функція resetPassword
 export const resetPassword = async (email: string): Promise<void> => {
-  // Відправляємо просто рядок, без обгортки в об'єкт
   await axios.post(`${API_URL}/reset-password`, email, {
     headers: {
       'Content-Type': 'application/json',

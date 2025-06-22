@@ -23,7 +23,6 @@ const ChatRoomPage: React.FC = () => {
   const [recordingTime, setRecordingTime] = useState(0);
   const [showRecordingControls, setShowRecordingControls] = useState(false);
 
-  // Виправлено: гарантуємо, що посилання ніколи не буде null
   const messagesEndRef = useRef<HTMLDivElement>(document.createElement('div'));
 
   const recordingIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);

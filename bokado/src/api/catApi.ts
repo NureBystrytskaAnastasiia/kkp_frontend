@@ -1,4 +1,3 @@
-// Створіть новий файл catApi.ts
 export interface CatResponse {
   id: string;
   url: string;
@@ -13,10 +12,9 @@ export const fetchRandomCat = async (): Promise<CatResponse> => {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     const data = await response.json();
-    return data[0]; // API повертає масив з одним об'єктом
+    return data[0]; 
   } catch (error) {
     console.error('Failed to fetch cat:', error);
-    // Fallback image
     return {
       id: 'fallback',
       url: 'https://cdn2.thecatapi.com/images/0XYvRd7oD.jpg',

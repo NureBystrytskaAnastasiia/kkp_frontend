@@ -15,7 +15,6 @@ const EventsPage: React.FC = () => {
   const [isProcessing, setIsProcessing] = useState<{ [eventId: number]: boolean }>({});
   const [isLoadingEvents, setIsLoadingEvents] = useState(false);
 
-  // Завантаження подій і ініціалізація участі користувача
   const loadEventData = useCallback(async () => {
     try {
       setIsLoadingEvents(true);
@@ -40,7 +39,6 @@ const EventsPage: React.FC = () => {
     loadEventData();
   }, [loadEventData]);
 
-  // Обробка приєднання до події
   const handleJoin = async (eventId: number) => {
     if (!user) {
       setMessage('Будь ласка, увійдіть, щоб приєднатися до події.');
@@ -54,7 +52,6 @@ const EventsPage: React.FC = () => {
       setMessage('Ви успішно приєдналися до події!');
       setMessageType('success');
 
-      // Оновити список подій і участь користувача після join
       await loadEventData();
     } catch (err: any) {
       setMessage(err.message || 'Не вдалося приєднатися до події');
@@ -64,7 +61,6 @@ const EventsPage: React.FC = () => {
     }
   };
 
-  // Обробка виходу з події
   const handleQuit = async (eventId: number) => {
     if (!user) return;
 
@@ -73,8 +69,6 @@ const EventsPage: React.FC = () => {
       await dispatch(quitExistingEvent(eventId)).unwrap();
       setMessage('Ви покинули подію.');
       setMessageType('info');
-
-      // Оновити список подій і участь користувача після quit
       await loadEventData();
     } catch (err: any) {
       setMessage(err.message || 'Не вдалося покинути подію');
@@ -84,7 +78,6 @@ const EventsPage: React.FC = () => {
     }
   };
 
-  // Автоматичне приховання повідомлення через 5 секунд
   useEffect(() => {
     if (message) {
       const timer = setTimeout(() => setMessage(null), 5000);

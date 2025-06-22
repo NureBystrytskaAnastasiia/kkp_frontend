@@ -18,7 +18,6 @@ const ChallengesList: React.FC = () => {
   }, [dispatch, token]);
 
   useEffect(() => {
-    // Очищуємо помилку після показу
     if (error) {
       const timer = setTimeout(() => {
         dispatch(clearError());
@@ -39,7 +38,6 @@ const ChallengesList: React.FC = () => {
   } catch (err: any) {
     console.error('Не вдалося завершити завдання:', err);
 
-    // Обробляємо помилки від API
     const message = err?.toString() || '';
 
     if (message.includes('умови') || message.includes('conditions') || message.includes('400')) {
@@ -58,13 +56,13 @@ const ChallengesList: React.FC = () => {
 
 
 
-  if (loading) return <div className="challenges-message">Завантаження завдань...</div>;
+  if (loading) return <div className="challenges-message">Завантаження челенджів...</div>;
   if (error) return <div className="challenges-error">Помилка: {error}</div>;
   if (challenges.length === 0) return <div className="challenges-message">Немає доступних завдань</div>;
 
   return (
     <div className="challenges-page">
-      <h2 className="challenges-title">Доступні завдання</h2>
+      <h2 className="challenges-title">Доступні челенджі</h2>
       {customError && <div className="challenges-error">{customError}</div>}
       <div className="challenges-grid">
         {challenges.map((challenge) => {

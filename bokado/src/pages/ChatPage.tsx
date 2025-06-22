@@ -183,7 +183,7 @@
                 <button
                 type="button"
                 onClick={(e) => {
-                  e.stopPropagation(); // не відкривати чат при кліку на кнопку
+                  e.stopPropagation();
                   handleDeleteChat(chat.chatId);
                 }}
                 className="delete-chat-button"

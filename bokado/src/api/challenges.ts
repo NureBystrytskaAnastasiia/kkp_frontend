@@ -3,7 +3,7 @@ import type { Challenge } from '../types/challenge';
 
 const API_BASE_URL = 'https://localhost:7192/api/Admin';
 
-// Отримати всі челенджі
+
 export const fetchAllChallenges = async (): Promise<Challenge[]> => {
   const token = localStorage.getItem('token');
   const response = await axios.get(`${API_BASE_URL}/allChallenges`, {
@@ -12,7 +12,6 @@ export const fetchAllChallenges = async (): Promise<Challenge[]> => {
   return response.data;
 };
 
-// Встановити активні челенджі
 export const selectChallenges = async (challengeIds: number[]): Promise<{ message: string }> => {
   const token = localStorage.getItem('token');
   const response = await axios.post(`${API_BASE_URL}/select-challenges`, challengeIds, {

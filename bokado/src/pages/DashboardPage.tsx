@@ -10,7 +10,7 @@ import { useDispatch } from 'react-redux';
 import { logout } from '../store/slices/authSlice';
 import '../styles/DashboardPages.css';
 import ChallengesList from '../components/ChallengesList/ChallengesList';
-import { FiDollarSign } from 'react-icons/fi';  // іконка для преміум пропозиції
+import { FiDollarSign } from 'react-icons/fi';
 
 
 const DashboardPage: React.FC = () => {
@@ -91,7 +91,7 @@ const DashboardPage: React.FC = () => {
                 </div>
               </section>
 
-              {/* Челенджі */}
+
              <section className="dashboard-section">
   <div className="section-header">
     <h2><FiTarget className="icon-spacing" /> Мої челенджі</h2>
@@ -99,7 +99,6 @@ const DashboardPage: React.FC = () => {
   <ChallengesList />
 </section>
 
-              {/* Події */}
               <section className="dashboard-section">
                 <div className="section-header">
                   <h2><FiCalendar className="icon-spacing" /> Події</h2>

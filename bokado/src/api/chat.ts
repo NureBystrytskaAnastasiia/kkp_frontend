@@ -1,10 +1,8 @@
-// api/chat.ts
 import axios from 'axios';
 import type { Chat, User, Message, BackendMessage, TypingStatus } from '../types/chat';
 
 const BASE_URL = 'https://localhost:7192';
 
-// WebSocket connection for real-time updates
 let socket: WebSocket | null = null;
 let onlineUsersCallback: ((users: number[]) => void) | null = null;
 let typingCallback: ((typing: TypingStatus) => void) | null = null;
@@ -39,7 +37,6 @@ export const initializeWebSocket = (
           messageCallback?.(convertBackendMessage(data.message));
           break;
         case 'messageRead':
-          // Handle message read status update
           break;
       }
     } catch (error) {
@@ -48,7 +45,6 @@ export const initializeWebSocket = (
   };
 
   socket.onclose = () => {
-    // Reconnect after 3 seconds
     setTimeout(() => {
       if (socket?.readyState === WebSocket.CLOSED) {
         initializeWebSocket(onOnlineUsers, onTyping, onNewMessage);
@@ -72,7 +68,6 @@ export const sendTypingStatus = (chatId: number, isTyping: boolean) => {
   }
 };
 
-// Функція для конвертації повідомлень з бекенду у фронтенд формат
 const convertBackendMessage = (backendMsg: BackendMessage): Message => {
   return {
     messageId: backendMsg.messageId,
@@ -90,7 +85,6 @@ const convertBackendMessage = (backendMsg: BackendMessage): Message => {
   };
 };
 
-// Отримати список чатів з останніми повідомленнями та лічильниками
 export const getChats = async (): Promise<Chat[]> => {
   const response = await axios.get(`${BASE_URL}/api/Chat/chats`, {
     headers: {
@@ -98,7 +92,6 @@ export const getChats = async (): Promise<Chat[]> => {
     },
   });
   
-  // Для кожного чату отримуємо останнє повідомлення та кількість непрочитаних
   const chatsWithDetails = await Promise.all(
     response.data.map(async (chat: Chat) => {
       try {
@@ -126,7 +119,6 @@ export const getChats = async (): Promise<Chat[]> => {
 };
 
 const getCurrentUserId = (): number => {
-  // Отримати ID поточного користувача з токену або стору
   const token = localStorage.getItem('token');
   if (token) {
     try {
@@ -139,7 +131,6 @@ const getCurrentUserId = (): number => {
   return 0;
 };
 
-// Створити чат із користувачем
 export const createChat = async (withUserId: number): Promise<Chat> => {
   const response = await axios.post(
     `${BASE_URL}/api/Chat/Create?withUserId=${withUserId}`,
@@ -154,7 +145,6 @@ export const createChat = async (withUserId: number): Promise<Chat> => {
   return response.data;
 };
 
-// Отримати всіх користувачів
 export const getUsers = async (): Promise<User[]> => {
   const response = await axios.get(`${BASE_URL}/api/User/all`, {
     headers: {
@@ -164,7 +154,6 @@ export const getUsers = async (): Promise<User[]> => {
   return response.data;
 };
 
-// Отримати онлайн статус користувачів
 export const getOnlineUsers = async (): Promise<number[]> => {
   try {
     const response = await axios.get(`${BASE_URL}/api/User/online`, {
@@ -179,7 +168,6 @@ export const getOnlineUsers = async (): Promise<number[]> => {
   }
 };
 
-// Отримати повідомлення для чату (з конвертацією)
 export const getChatMessages = async (chatId: number): Promise<Message[]> => {
   const response = await axios.get<BackendMessage[]>(`${BASE_URL}/api/Chat/${chatId}/messages`, {
     headers: {
@@ -213,7 +201,6 @@ export const sendMessage = async (
   return response.data;
 };
 
-// Позначити повідомлення як прочитане
 export const markMessageAsRead = async (messageId: number): Promise<void> => {
   try {
     await axios.put(`${BASE_URL}/api/Chat/message/${messageId}/read`, {}, {
@@ -226,7 +213,6 @@ export const markMessageAsRead = async (messageId: number): Promise<void> => {
   }
 };
 
-// Позначити всі повідомлення в чаті як прочитані
 export const markChatAsRead = async (chatId: number): Promise<void> => {
   try {
     await axios.put(`${BASE_URL}/api/Chat/${chatId}/read`, {}, {
@@ -239,7 +225,6 @@ export const markChatAsRead = async (chatId: number): Promise<void> => {
   }
 };
 
-// Видалити повідомлення - виправлений ендпоінт
 export const deleteMessage = async (messageId: number): Promise<any> => {
   const response = await axios.delete(`${BASE_URL}/api/Chat/message/${messageId}`, {
     headers: {
@@ -249,7 +234,6 @@ export const deleteMessage = async (messageId: number): Promise<any> => {
   return response.data;
 };
 
-// Перевірити, чи користувач онлайн (з кешуванням)
 let onlineUsersCache: number[] = [];
 export const checkUserOnlineStatus = (userId: number): boolean => {
   return onlineUsersCache.includes(userId);
@@ -259,7 +243,6 @@ export const updateOnlineUsersCache = (users: number[]) => {
   onlineUsersCache = users;
 };
 
-// Відправка голосових повідомлень
 export const sendVoiceMessage = async (
   chatId: number,
   voiceFile: File

@@ -13,7 +13,7 @@ const CreateEventPage: React.FC = () => {
   const [description, setDescription] = useState('');
   const [date, setDate] = useState('');
   const [city, setCity] = useState('');
-  const [maximum, setMaximum] = useState<number>(2); // Додано maximum
+  const [maximum, setMaximum] = useState<number>(2); 
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

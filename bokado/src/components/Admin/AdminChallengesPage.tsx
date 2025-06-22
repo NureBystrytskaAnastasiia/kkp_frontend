@@ -1,4 +1,3 @@
-// AdminChallengesPage.tsx
 import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/useAuth';
 import { loadAllChallenges, toggleChallengeSelection, updateSelectedChallenges } from '../../store/slices/challengeSlice';

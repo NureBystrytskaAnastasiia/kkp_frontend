@@ -119,7 +119,7 @@ const ProfileEdit: React.FC<ProfileEditProps> = ({
       {localError && <div className="error-message">{localError}</div>}
 
       <div className="form-group">
-        <label className="form-label">Username</label>
+        <label className="form-label">Ім'я</label>
         <input
           type="text"
           name="username"
@@ -133,7 +133,7 @@ const ProfileEdit: React.FC<ProfileEditProps> = ({
       </div>
 
       <div className="form-group">
-        <label className="form-label">Birth Date</label>
+        <label className="form-label">Дата народження</label>
         <input
           type="date"
           name="birthDate"
@@ -145,21 +145,14 @@ const ProfileEdit: React.FC<ProfileEditProps> = ({
       </div>
 
       <div className="form-group">
-        <label className="form-label">Avatar Source</label>
+        <label className="form-label">Фото профілю</label>
         <div className="avatar-source-toggle">
           <button
             type="button"
             onClick={toggleAvatarSource}
             className={`toggle-button ${!useUrlForAvatar ? 'active' : ''}`}
           >
-            Upload File
-          </button>
-          <button
-            type="button"
-            onClick={toggleAvatarSource}
-            className={`toggle-button ${useUrlForAvatar ? 'active' : ''}`}
-          >
-            Use URL
+            Завантажити файл
           </button>
         </div>
 
@@ -171,7 +164,7 @@ const ProfileEdit: React.FC<ProfileEditProps> = ({
               onChange={handleFileChange}
               className="file-input"
             />
-            <span className="file-upload-button">Choose File</span>
+            <span className="file-upload-button">Виберіть файл</span>
             {avatarFile && (
               <span className="file-name">{avatarFile.name}</span>
             )}
@@ -188,7 +181,7 @@ const ProfileEdit: React.FC<ProfileEditProps> = ({
       </div>
 
       <div className="form-group">
-        <label className="form-label">Bio</label>
+        <label className="form-label">Про себе</label>
         <textarea
           name="bio"
           value={formData.bio}
@@ -198,7 +191,7 @@ const ProfileEdit: React.FC<ProfileEditProps> = ({
       </div>
 
       <div className="form-group">
-        <label className="form-label">Status Message</label>
+        <label className="form-label">Статус профілю</label>
         <input
           type="text"
           name="status"
@@ -209,7 +202,7 @@ const ProfileEdit: React.FC<ProfileEditProps> = ({
       </div>
 
       <div className="form-group">
-        <label className="form-label">City</label>
+        <label className="form-label">Місто</label>
         <input
           type="text"
           name="city"
@@ -220,24 +213,24 @@ const ProfileEdit: React.FC<ProfileEditProps> = ({
       </div>
 
       <div className="form-group">
-        <label className="form-label">Interests (comma separated)</label>
+        <label className="form-label">Інтереси через кому "," писати</label>
         <input
           type="text"
           value={interestInput}
           onChange={(e) => setInterestInput(e.target.value)}
-          placeholder="Enter interests, e.g. Music, Sports"
+          placeholder="Введіть інтереси - Музика,танці,книги"
           className="form-input"
         />
       </div>
 
       <div className="form-group">
-        <label className="form-label">New Password (leave empty to keep current)</label>
+        <label className="form-label">Новий пароль - необов'язково</label>
         <input
           type="password"
           name="password"
           value={formData.password}
           onChange={handleChange}
-          placeholder="Enter new password or leave empty"
+          placeholder="Введіть новий пароль"
           className="form-input"
         />
       </div>
@@ -248,14 +241,14 @@ const ProfileEdit: React.FC<ProfileEditProps> = ({
           disabled={isLoading}
           className="save-button"
         >
-          {isLoading ? 'Saving...' : 'Save Changes'}
+          {isLoading ? 'Збереження...' : 'Зберегти зміни'}
         </button>
         <button
           type="button"
           onClick={onCancel}
           className="cancel-button"
         >
-          Cancel
+          Скасувати
         </button>
       </div>
     </form>

@@ -8,7 +8,7 @@ const RegisterPage: React.FC = () => {
     email: '',
     password: '',
     username: '',
-    birthDate: '', // Тут все ще зберігаємо як string (yyyy-MM-dd)
+    birthDate: '',
   });
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -24,16 +24,16 @@ const RegisterPage: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Конвертуємо birthDate string (yyyy-MM-dd) у Date і далі в ISO 8601
-    const localDate = new Date(formData.birthDate); // Наприклад, '2025-05-26'
+
+    const localDate = new Date(formData.birthDate); 
     const utcDate = new Date(localDate.getTime() + localDate.getTimezoneOffset() * 60000); 
-    const birthDateIso = utcDate.toISOString(); // "2025-05-26T00:00:00.000Z"
+    const birthDateIso = utcDate.toISOString(); 
 
     const dto = {
       email: formData.email,
       password: formData.password,
       username: formData.username,
-      birthDate: birthDateIso, // 🔥 Ось у правильному форматі
+      birthDate: birthDateIso, 
     };
 
     const result = await dispatch(registerUser(dto));
@@ -45,7 +45,7 @@ const RegisterPage: React.FC = () => {
   return (
   <div className="register-container">
     <div className="register-card">
-      <h2 className="register-title">Register</h2>
+      <h2 className="register-title">Реєстрація</h2>
       
       {error && (
         <div className="error-message">
@@ -55,7 +55,7 @@ const RegisterPage: React.FC = () => {
       
       <form onSubmit={handleSubmit} className="register-form">
         <div className="form-group">
-          <label className="form-label">Username:</label>
+          <label className="form-label">Ім'я:</label>
           <input
             type="text"
             name="username"
@@ -69,7 +69,7 @@ const RegisterPage: React.FC = () => {
         </div>
         
         <div className="form-group">
-          <label className="form-label">Email:</label>
+          <label className="form-label">Пошта:</label>
           <input
             type="email"
             name="email"
@@ -94,7 +94,7 @@ const RegisterPage: React.FC = () => {
         </div>
         
         <div className="form-group">
-          <label className="form-label">Birth Date:</label>
+          <label className="form-label">Дата народження:</label>
           <input
             type="date"
             name="birthDate"
@@ -115,7 +115,7 @@ const RegisterPage: React.FC = () => {
       </form>
       
       <p className="login-link">
-        Already have an account? <a href="/login">Login</a>
+        AВже маєте акаут? <a href="/login">Вхід</a>
       </p>
     </div>
   </div>

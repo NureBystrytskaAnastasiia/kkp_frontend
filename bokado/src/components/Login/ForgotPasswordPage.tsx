@@ -1,4 +1,3 @@
-// src/pages/ForgotPasswordPage.tsx
 import React, { useState } from 'react';
 import { resetPassword } from '../../api/auth';
 import '../../styles/Register.css';
@@ -24,7 +23,6 @@ const ForgotPasswordPage: React.FC = () => {
       await resetPassword(email);
       setMessage('Посилання для скидання надіслано на вашу електронну адресу.');
     } catch (err: any) {
-      // Обробка помилок валідації з бекенду
       if (err.response?.data?.errors?.email) {
         setError(err.response.data.errors.email[0]);
       } else if (err.response?.data?.title) {
@@ -40,12 +38,12 @@ const ForgotPasswordPage: React.FC = () => {
   return (
     <div className="forgot-password-modal">
       <div className="forgot-password-container">
-        <h2>Forgot Password</h2>
+        <h2>Відновлення паролю</h2>
         {message && <div className="message success">{message}</div>}
         {error && <div className="message error">{error}</div>}
         <form className="forgot-password-form" onSubmit={handleSubmit}>
           <div className="form-group">
-            <label>Email:</label>
+            <label>Пошта:</label>
             <input
               type="email"
               value={email}
@@ -57,7 +55,7 @@ const ForgotPasswordPage: React.FC = () => {
             {isLoading ? (
               <>
                 <span className="loading-spinner"></span>
-                Sending...
+                Відправка...
               </>
             ) : (
               'Send Reset Link'
