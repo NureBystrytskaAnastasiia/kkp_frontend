@@ -110,7 +110,7 @@ const RegisterPage: React.FC = () => {
           className="submit-button"
           disabled={isLoading}
         >
-          {isLoading ? 'Loading...' : 'Register'}
+          {isLoading ? 'Loading...' : 'Зареєструватися'}
         </button>
       </form>
       
